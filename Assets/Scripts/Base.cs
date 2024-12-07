@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-[RequireComponent(typeof(Counter))]
+[RequireComponent(typeof(ScoreDisplay))]
 public class Base : MonoBehaviour
 {
     [SerializeField] private List<Bot> _bots;
@@ -12,33 +12,29 @@ public class Base : MonoBehaviour
     [SerializeField] private ResourceScanner _scanner;
     [SerializeField] private Transform _returnPoint;
 
-    public event Action<string> ScoreChanged;
-
-    private Counter _counter;
+    private ScoreDisplay _scoreDisplay;
+    private ResourceCounter _resourceCounter = new();
     private List<Resource> _foundedResources = new();
     private List<Resource> _resourcesInProgress = new();
-    private int _score = 0;
 
-    private void OnEnable()
-    {
-        _counter = GetComponent<Counter>();
-        ScoreChanged += _counter.UpdateText;
-    }
+    private void Awake() =>
+        _scoreDisplay = GetComponent<ScoreDisplay>();
 
-    private void OnDisable()
-    {
-        ScoreChanged -= _counter.UpdateText;
-    }
-
-    private void Start()
-    {
+    private void Start() =>
         StartCoroutine(Work());
-        _counter.UpdateText(_score.ToString());
-    }
+
+    private void OnEnable() =>
+        _resourceCounter.QuantityChanged += _scoreDisplay.UpdateText;
+
+    private void OnDisable() =>
+        _resourceCounter.QuantityChanged -= _scoreDisplay.UpdateText;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out Resource resource) == false)
+            return;
+
+        if (_resourcesInProgress.Contains(resource) == false)
             return;
 
         resource.transform.SetParent(null);
@@ -46,9 +42,7 @@ public class Base : MonoBehaviour
         resource.Collect();
 
         _resourcesInProgress.Remove(resource);
-
-        _score++;
-        ScoreChanged?.Invoke(_score.ToString());
+        _resourceCounter.PlusOne();
     }
 
     private IEnumerator Work()
