@@ -24,13 +24,16 @@ public class Base : MonoBehaviour
     private void Start()
     {
         _scoreViewer.UpdateScore(_score);
+
         StartCoroutine(ExtractResources());
     }
 
     public void GetResource(Resource resource)
     {
-        resource.Disable();
+        _extractedResources.Remove(resource);
         _scoreViewer.UpdateScore(++_score);
+
+        resource.Disable();
     }
 
     private IEnumerator ExtractResources()

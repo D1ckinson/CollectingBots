@@ -4,34 +4,36 @@ using UnityEngine.AI;
 
 public class Mover : MonoBehaviour
 {
-    public event Action<Transform> TargetReached;
+    [SerializeField] private float _speed = 20f;
 
-    private Transform _target;
     private NavMeshAgent _agent;
     private float _arrivalThreshold = 1f;
 
-    public void SetTarget(Transform target)
-    {
-        _target = target;
-        _agent.SetDestination(_target.position);
-    }
+    public event Action TargetReached;
 
     private void Awake()
     {
         _agent = GetComponent<NavMeshAgent>();
-    }
 
-    private void Start()
-    {
-        _agent.SetDestination(new(0, 0, 0));
+        _agent.acceleration = float.MaxValue;
+        _agent.speed = _speed;
     }
 
     private void Update()
     {
         if (_agent.remainingDistance < _arrivalThreshold)
-        {
-            _agent.isStopped = true;
-            TargetReached?.Invoke(_target);
-        }
+            Stop();
+    }
+
+    public void SetTarget(Vector3 point)
+    {
+        _agent.SetDestination(point);
+        _agent.isStopped = false;
+    }
+
+    private void Stop()
+    {
+        _agent.isStopped = true;
+        TargetReached?.Invoke();
     }
 }

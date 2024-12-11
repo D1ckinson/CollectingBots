@@ -8,8 +8,9 @@ public class Bot : MonoBehaviour
 
     private Mover _mover;
     private Collector _collector;
+    private Resource _resource;
 
-    public bool IsBusy {  get; private set; }
+    public bool IsBusy { get; private set; }
 
     private void Awake()
     {
@@ -19,23 +20,32 @@ public class Bot : MonoBehaviour
 
     public void ExtractResource(Resource resource)
     {
-        _mover.SetTarget(resource.transform);
-        _mover.TargetReached += _collector.PickUp;
+        _resource = resource;
+
         _collector.ItemPicked += ReturnToBase;
+        _mover.TargetReached += PickUp;
+
+        _mover.SetTarget(_resource.transform.position);
         IsBusy = true;
     }
 
+    private void PickUp() =>
+        _collector.PickUp(_resource.transform);
+
     private void ReturnToBase()
     {
-        _mover.SetTarget(_base.transform);
-        _mover.TargetReached -= _collector.PickUp;
+        _collector.ItemPicked -= ReturnToBase;
+        _mover.TargetReached -= PickUp;
         _mover.TargetReached += GiveResource;
+
+        _mover.SetTarget(_base.transform.position);
     }
 
-    private void GiveResource(Transform _)
+    private void GiveResource()
     {
-        _base.GetResource(_collector.Relieve().GetComponent<Resource>());
         _mover.TargetReached -= GiveResource;
+
+        _base.GetResource(_collector.Relieve().GetComponent<Resource>());
         IsBusy = false;
     }
 }

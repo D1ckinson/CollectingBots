@@ -11,11 +11,8 @@ public class Resource : MonoBehaviour, IPoolableObject<Resource>
     private void Awake() =>
         _rigidbody = GetComponent<Rigidbody>();
 
-    public void Enable()
-    {
+    public void Enable() => 
         gameObject.SetActive(true);
-        _rigidbody.isKinematic = true;
-    }
 
     public void Disable()
     {

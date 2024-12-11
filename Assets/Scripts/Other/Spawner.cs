@@ -15,15 +15,10 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolableObject
         _spawnArea = GetComponent<BoxCollider>();
 
         _pool = new Pool<T>(() => Instantiate(_item));
-        //,
-        //(T item) => item.gameObject.SetActive(true),
-        //(T item) => item.gameObject.SetActive(false));
     }
 
-    private void Start()
-    {
+    private void Start() =>
         StartCoroutine(Spawn());
-    }
 
     private IEnumerator Spawn()
     {
