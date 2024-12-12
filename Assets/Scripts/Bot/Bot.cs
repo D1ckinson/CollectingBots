@@ -4,8 +4,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collector))]
 public class Bot : MonoBehaviour
 {
-    [SerializeField] private Base _base;
-
+    private Base _base;
     private Mover _mover;
     private Collector _collector;
     private Resource _resource;
@@ -17,6 +16,9 @@ public class Bot : MonoBehaviour
         _mover = GetComponent<Mover>();
         _collector = GetComponent<Collector>();
     }
+
+    public void SetBase(Base @base) =>
+        _base = @base;
 
     public void ExtractResource(Resource resource)
     {

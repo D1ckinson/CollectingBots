@@ -5,7 +5,7 @@ using UnityEngine;
 public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolableObject<T>
 {
     [SerializeField] private T _item;
-    [SerializeField] float _delay = 2f;
+    [SerializeField] private float _delay = 2f;
 
     private BoxCollider _spawnArea;
     private Pool<T> _pool;
