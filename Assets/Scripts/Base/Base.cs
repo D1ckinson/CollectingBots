@@ -39,7 +39,6 @@ public class Base : MonoBehaviour, IHaveScore
 
     public void GetResource(Resource resource)
     {
-
         _extractedResources.Remove(resource);
         ScoreChange?.Invoke(++_score);
 
