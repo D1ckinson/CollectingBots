@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 4898195771127584013}
   - component: {fileID: 8863158290536210645}
   - component: {fileID: 1858595649706156544}
-  - component: {fileID: -2505926625020420996}
   - component: {fileID: -4277643245958262068}
   - component: {fileID: -8824992687599686096}
+  - component: {fileID: 1723410096585937823}
   m_Layer: 0
   m_Name: Bot
   m_TagString: Untagged
@@ -124,19 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad3713f7cb757f54f8ccfee00ac2ff11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-2505926625020420996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 931484266069283322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a3c47410b6f202e4ba7700bbdb820210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _point: {fileID: 2744795894804199067}
+  _speed: 20
 --- !u!114 &-4277643245958262068
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +137,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4eddf429861974c45a3bebd27109caf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _base: {fileID: 0}
 --- !u!195 &-8824992687599686096
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -172,6 +159,19 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &1723410096585937823
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 931484266069283322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 252c8f6792421634fb764632545c563d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _point: {fileID: 2744795894804199067}
 --- !u!1 &7003294815967716754
 GameObject:
   m_ObjectHideFlags: 0

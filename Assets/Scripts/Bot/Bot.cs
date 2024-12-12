@@ -1,12 +1,12 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Mover))]
-[RequireComponent(typeof(Collector))]
+[RequireComponent(typeof(ResourceCollector))]
 public class Bot : MonoBehaviour
 {
     private Base _base;
     private Mover _mover;
-    private Collector _collector;
+    private ResourceCollector _collector;
     private Resource _resource;
 
     public bool IsBusy { get; private set; }
@@ -14,7 +14,7 @@ public class Bot : MonoBehaviour
     private void Awake()
     {
         _mover = GetComponent<Mover>();
-        _collector = GetComponent<Collector>();
+        _collector = GetComponent<ResourceCollector>();
     }
 
     public void SetBase(Base @base) =>
@@ -32,7 +32,7 @@ public class Bot : MonoBehaviour
     }
 
     private void PickUp() =>
-        _collector.PickUp(_resource.transform);
+        _collector.PickUp(_resource);
 
     private void ReturnToBase()
     {
