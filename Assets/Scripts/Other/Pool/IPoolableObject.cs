@@ -2,7 +2,7 @@
 
 public interface IPoolableObject<T>
 {
-    public event Action<T> IDisable;
+    public event Action<T> Disabled;
 
     public void Enable();
 

@@ -2,6 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.AI;
 
+[RequireComponent(typeof(NavMeshAgent))]
 public class Mover : MonoBehaviour
 {
     [SerializeField] private float _speed = 20f;

@@ -40,12 +40,12 @@ public class Spawner<T> : MonoBehaviour where T : MonoBehaviour, IPoolableObject
         float halfX = _spawnArea.size.x / halfDivider;
         float halfZ = _spawnArea.size.z / halfDivider;
 
-        Vector2 topRight = new(_spawnArea.center.x + halfX, _spawnArea.center.z + halfZ);
-        Vector2 bottomLeft = new(_spawnArea.center.x - halfX, _spawnArea.center.x - halfZ);
+        Vector2 topRight = new(transform.position.x + halfX, transform.position.z + halfZ);
+        Vector2 bottomLeft = new(transform.position.x - halfX, transform.position.x - halfZ);
 
         float x = Random.Range(topRight.x, bottomLeft.x);
         float z = Random.Range(topRight.y, bottomLeft.y);
 
-        return new Vector3(x, _spawnArea.center.y, z);
+        return new Vector3(x, transform.position.y, z);
     }
 }

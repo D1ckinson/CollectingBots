@@ -25,14 +25,14 @@ public class Pool<T> where T : IPoolableObject<T>
         T item = _items.Any() ? _items.Dequeue() : _createFunc.Invoke();
 
         item.Enable();
-        item.IDisable += Return;
+        item.Disabled += Return;
 
         return item;
     }
 
     public void Return(T item)
     {
-        item.IDisable -= Return;
+        item.Disabled -= Return;
 
         _items.Enqueue(item);
     }
